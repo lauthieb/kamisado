@@ -47,27 +47,37 @@ function getPosition(pawn) {
 function showAllowedPlacesWhite(id) {
     var ligne = parseInt(id.substring(0,1).charCodeAt(0)-97);
     var col = parseInt(id.substring(1,2));
-    var blackFound = false;
+    var blackFoundCol = false;
+    var blackFoundLDiag = false;
+    var blackFoundRDiag = false;
 
     for (var i=0; i<8; i++) {
         for (var j=0; j<8; j++) {
             var td = $('#board tr:nth-child(' + (i+1) + ') ' + 'td:nth-child(' + (j+1) + ')');
-            if (td.children().first().hasClass('black-pawn')) {
-                blackFound = true;
-            }
-            if (i > ligne && !blackFound) {
-                /* Column */
-                console.log(i + ' ' + (i+j) + ' ' + (parseInt(col)+parseInt(ligne)));
+            if (i > ligne) {
                 if (j == col) {
-                    td.append('<p>OK</p>');
+                    if (td.children().first().hasClass('black-pawn')) {
+                        blackFoundCol = true;
+                    }
+                    if (!blackFoundCol) {
+                        td.append('<p>OK</p>');
+                    }
                 }
-                /* Left diagonal */
-                if((i+j) == (col+ligne)) {
-                    td.append('<p>OK</p>');
+                if ((i+j) == (col+ligne)) {
+                    if (td.children().first().hasClass('black-pawn')) {
+                        blackFoundLDiag = true;
+                    }
+                    if (!blackFoundLDiag) {
+                        td.append('<p>OK</p>');
+                    }
                 }
-                /* Right diagonal */
-                if((col-ligne) == j-i) {
-                    td.append('<p>OK</p>');
+                if ((j-i) == (col-ligne)) {
+                    if (td.children().first().hasClass('black-pawn')) {
+                        blackFoundRDiag = true;
+                    }
+                    if (!blackFoundRDiag) {
+                        td.append('<p>OK</p>');
+                    }
                 }
             }
         }
@@ -77,17 +87,38 @@ function showAllowedPlacesWhite(id) {
 function showAllowedPlacesBlack(id) {
     var ligne = parseInt(id.substring(0,1).charCodeAt(0)-97);
     var col = parseInt(id.substring(1,2));
-    var whiteFound = false;
-    console.log(ligne + ' ' + col);
+    var whiteFoundCol = false;
+    var whiteFoundLDiag = false;
+    var whiteFoundRDiag = false;
 
     for (var i=7; i>=0; i--) {
         for (var j=7; j>=0; j--) {
             var td = $('#board tr:nth-child(' + (i+1) + ') ' + 'td:nth-child(' + (j+1) + ')');
-            if (td.children().first().hasClass('white-pawn')) {
-                whiteFound = true;
-            }
-            if (i!= ligne && !whiteFound) {
-
+            if (i < ligne) {
+                if (j == col) {
+                    if (td.children().first().hasClass('white-pawn')) {
+                        whiteFoundCol = true;
+                    }
+                    if (!whiteFoundCol) {
+                        td.append('<p>OK</p>');
+                    }
+                }
+                if ((i+j) == (col+ligne)) {
+                    if (td.children().first().hasClass('white-pawn')) {
+                        whiteFoundLDiag = true;
+                    }
+                    if (!whiteFoundLDiag) {
+                        td.append('<p>OK</p>');
+                    }
+                }
+                if ((j-i) == (col-ligne)) {
+                    if (td.children().first().hasClass('white-pawn')) {
+                        whiteFoundRDiag = true;
+                    }
+                    if (!whiteFoundRDiag) {
+                        td.append('<p>OK</p>');
+                    }
+                }
             }
         }
     }
