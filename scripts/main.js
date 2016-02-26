@@ -16,7 +16,7 @@ function initBoard() {
 
 function placePawns() {
     for (var i=0; i<8; i++) {
-        var td = $('#a td:nth-child(' + (i+1) + ')');
+        var td = $('#c td:nth-child(' + (i+1) + ')');
         var whitePawn = $('<div></div>');
         whitePawn.attr('id', "w-" + colors[0][i]);
         whitePawn.addClass(colors[0][i]);
@@ -33,6 +33,9 @@ function placePawns() {
         blackPawn.attr('id', "b-" + colors[7][i]);
         blackPawn.addClass(colors[7][i]);
         blackPawn.addClass('black-pawn');
+        blackPawn.click(function() {
+            showAllowedPlacesBlack(getPosition($(this)));
+        });
         td.append(blackPawn);
     }
 }
@@ -42,8 +45,8 @@ function getPosition(pawn) {
 }
 
 function showAllowedPlacesWhite(id) {
-    var ligne = id.substring(0,1).charCodeAt(0)-97;
-    var col = id.substring(1,2);
+    var ligne = parseInt(id.substring(0,1).charCodeAt(0)-97);
+    var col = parseInt(id.substring(1,2));
     var blackFound = false;
 
     for (var i=0; i<8; i++) {
@@ -52,19 +55,39 @@ function showAllowedPlacesWhite(id) {
             if (td.children().first().hasClass('black-pawn')) {
                 blackFound = true;
             }
-            if (i!= ligne && !blackFound) {
+            if (i > ligne && !blackFound) {
                 /* Column */
+                console.log(i + ' ' + (i+j) + ' ' + (parseInt(col)+parseInt(ligne)));
                 if (j == col) {
                     td.append('<p>OK</p>');
                 }
                 /* Left diagonal */
-                if(j-col == i) {
+                if((i+j) == (col+ligne)) {
                     td.append('<p>OK</p>');
                 }
                 /* Right diagonal */
-                if(i+j == col) {
+                if((col-ligne) == j-i) {
                     td.append('<p>OK</p>');
                 }
+            }
+        }
+    }
+}
+
+function showAllowedPlacesBlack(id) {
+    var ligne = parseInt(id.substring(0,1).charCodeAt(0)-97);
+    var col = parseInt(id.substring(1,2));
+    var whiteFound = false;
+    console.log(ligne + ' ' + col);
+
+    for (var i=7; i>=0; i--) {
+        for (var j=7; j>=0; j--) {
+            var td = $('#board tr:nth-child(' + (i+1) + ') ' + 'td:nth-child(' + (j+1) + ')');
+            if (td.children().first().hasClass('white-pawn')) {
+                whiteFound = true;
+            }
+            if (i!= ligne && !whiteFound) {
+
             }
         }
     }
