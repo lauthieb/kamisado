@@ -1,0 +1,35 @@
+.container {
+    text-align: center;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+td {
+    border: 2px solid black;
+    width: 50px;
+    height: 50px;
+}
+
+.white-pawn {
+	border-radius: 50%;
+    position: relative;
+    left: 8px;
+	width: 32px;
+	height: 32px;
+    border: 7px solid white;
+    cursor: pointer;
+}
+
+.black-pawn {
+    border-radius: 50%;
+    position: relative;
+    left: 8px;
+	width: 32px;
+	height: 32px;
+    border: 7px solid black;
+    opacity: 1;
+    cursor: pointer;
+}

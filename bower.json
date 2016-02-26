@@ -1,0 +1,17 @@
+{
+  "name": "kamisado",
+  "homepage": "https://github.com/lauthieb/kamisado",
+  "authors": [
+    "Laurent THIEBAULT <thiebault.laurent@gmail.com>"
+  ],
+  "description": "A Kamisado in JavaScript",
+  "moduleType": [],
+  "keywords": [
+    "kamisado",
+    "boardgame"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^3.3.6"
+  }
+}
